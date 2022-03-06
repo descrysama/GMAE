@@ -2,7 +2,7 @@
 session_start();
 require_once('../config.php');
 
-if (empty($_SESSION['user'])) {
+if (empty($_SESSION['pseudo'])) {
     header('location:../login');
 }
 
@@ -41,7 +41,7 @@ if ($row = 1) {
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-              <a class="navbar-brand" href="partenaires.html"><img src="../assets/img/logo_GMAE-1.png" alt="logo" width="5%"></a>
+              <a class="navbar-brand" href="home"><img src="../assets/img/logo_GMAE-1.png" alt="logo" width="5%"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -49,7 +49,7 @@ if ($row = 1) {
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="partenaires.html">Partenaires</a>
+                    <a class="nav-link active" aria-current="page" href="home">Partenaires</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="profile">Profil</a>
@@ -63,8 +63,8 @@ if ($row = 1) {
             </div>
           </nav>
     </header>
-  <h3>Bienvenu(e) <?php echo $prenom;?>.</h3>
     <div class="container">
+    <h3>Bienvenu(e) <?php echo $prenom;?>.</h3>
         <div class="row">
             <div class="col-md-6 col-12 col-lg-6">
                 <div class="card">

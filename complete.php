@@ -2,6 +2,11 @@
 session_start();
 require_once 'config.php';
 
+if (empty($_SESSION['pseudo'])) {
+    header('location:/login');
+}
+
+
 $pseudo = $_SESSION['pseudo'];
 
 $firstrequest = $bdd->prepare('SELECT nom FROM users WHERE pseudo = ?');
@@ -9,9 +14,10 @@ $firstrequest->execute(array($pseudo));
 $fetch = $firstrequest->fetch();
 $row = $firstrequest->rowCount();
 
-if ($row == 0) {
-    echo $fetch['nom'];
-    var_dump($row);
+if ($row == 1) {
+    if (!empty($fetch['nom'])) {
+        header('location:/dashboard/home');
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
