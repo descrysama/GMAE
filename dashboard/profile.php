@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once '../config.php';
+if (empty($_SESSION['pseudo'])) {
+  header('location:../login');
+}
 $pseudo = $_SESSION['pseudo'];
 $req = $bdd->prepare('SELECT  nom, prenom, mot_de_passe FROM users WHERE pseudo = ?');
 $req->execute(array($pseudo));
@@ -10,6 +13,21 @@ $row = $req->rowCount();
 $nom = $fetch['nom'];
 $prenom = $fetch['prenom'];
 $password = $fetch['mot_de_passe'];
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if (!empty($_POST['pseudo']) && !empty($_POST['prenom']) && !empty($_POST['nom']) && !empty($_POST['password'])){
+    $req = $bdd->prepare('UPDATE users SET pseudo = ? , prenom = ? , nom = ?, mot_de_passe = ? WHERE pseudo = ?');
+    $req->execute(array(
+    htmlspecialchars($_POST['pseudo']),
+    htmlspecialchars($_POST['prenom']),
+    htmlspecialchars($_POST['nom']),
+    htmlspecialchars($_POST['password']),
+    htmlspecialchars($pseudo)
+    ));
+    $_SESSION['pseudo'] = htmlspecialchars($_POST['pseudo']);
+  }else {$formErr = 'Veuillez remplir correctement tout les champs.';}
+}
 
 ?>
 
@@ -40,10 +58,10 @@ $password = $fetch['mot_de_passe'];
                     <a class="nav-link" href="home">Partenaires</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="profil">Profil</a>
+                    <a class="nav-link active" aria-current="page" href="profile">Profil</a>
                   </li>
                   <li class="nav-item">
-                    <a href="index.html" class="btn btn-danger">Déconnecter</a>
+                    <a href="deconnexion" class="btn btn-danger">Déconnecter</a>
                   </li>
                 </ul>
               </div>
@@ -52,30 +70,23 @@ $password = $fetch['mot_de_passe'];
           </nav>
     </header>
     <div class="container">
+    <h3>Changez vos informations de connexion ici :</h3>
     <div class="card">
-        <div class="card-body">
-          <h5>Pseudo : </h5>
-          <input type="text" value="<?php echo $pseudo?>">
+        <div class="card-body d-flex justify-content-center">
+          <form class="form" action="" method="POST">
+          <p><?php if (!empty($formErr)){echo $formErr;} ?></p>
+            <h5>Pseudo : </h5>
+            <input type="text" name="pseudo" value="<?php echo $pseudo?>">
+            <h5>Prenom : </h5>
+            <input type="text" name="prenom" value="<?php echo $prenom?>">
+            <h5>Nom : </h5>
+            <input type="text" name="nom" value="<?php echo $nom?>">
+            <h5>Mot de Passe : </h5>
+            <input type="password" name="password" value="<?php $nombre = strlen($password); echo str_repeat('*', $nombre);?>">
+            <input class="btn btn-danger m-2" type="submit" value="Valider les changements">
+          </form>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <h5>Prenom : </h5>
-          <input type="text" value="<?php echo $prenom?>">
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <h5>Nom : </h5>
-          <input type="text" value="<?php echo $nom?>">
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <h5>Mot de Passe : </h5>
-          <input type="password" value="<?php $nombre = strlen($password); echo str_repeat('', $nombre);?>"> 
-        </div>
-      </div>
+    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
