@@ -1,3 +1,20 @@
+<?php
+session_start();
+require_once '../config.php';
+$pseudo = $_SESSION['pseudo'];
+$req = $bdd->prepare('SELECT  nom, prenom, mot_de_passe FROM users WHERE pseudo = ?');
+$req->execute(array($pseudo));
+$fetch = $req->fetch();
+$row = $req->rowCount();
+
+$nom = $fetch['nom'];
+$prenom = $fetch['prenom'];
+$password = $fetch['mot_de_passe'];
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,8 +51,32 @@
             </div>
           </nav>
     </header>
-    
+    <div class="container">
+    <div class="card">
+        <div class="card-body">
+          <h5>Pseudo : </h5>
+          <input type="text" value="<?php echo $pseudo?>">
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5>Prenom : </h5>
+          <input type="text" value="<?php echo $prenom?>">
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5>Nom : </h5>
+          <input type="text" value="<?php echo $nom?>">
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5>Mot de Passe : </h5>
+          <input type="password" value="<?php $nombre = strlen($password); echo str_repeat('', $nombre);?>"> 
+        </div>
+      </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="app.js"></script>
 </body>
 </html> 
