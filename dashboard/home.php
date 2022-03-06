@@ -49,7 +49,7 @@ if ($row = 1) {
                     <a class="nav-link active" aria-current="page" href="partenaires.html">Partenaires</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="profil.html">Profil</a>
+                    <a class="nav-link" href="profile">Profil</a>
                   </li>
                   <li class="nav-item">
                     <a href="../deconnexion" class="btn btn-danger">Déconnecter</a>
