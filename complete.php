@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/index.css">
-    <title>Complete</title>
+    <title>GMAE | Complete</title>
 </head>
 
 <body>
@@ -49,16 +49,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <h5>Bonjour <?php echo $pseudo ?>, veuillez completer vos informations pour acceder à votre espace de travail.</h5>
         <p style="color: red;"><?php if (!empty($formErr)){echo $formErr;} ?></p>
         <form class="form" method="POST">
-            <div class="row mb-3">
-                <label for="inputNom3" class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-15">
-                    Nom <input type="text" class="form-control" id="nom" name="nom">
-                </div>
-            </div>
+            
             <div class="row mb-3">
                 <label for="inputPrenom3" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-15">
                     Prénom <input type="text" class="form-control" id="prenom" name="prenom">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputNom3" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-15">
+                    Nom <input type="text" class="form-control" id="nom" name="nom">
                 </div>
             </div>
             Question<select class="form-select" id="question" name="question">

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/index.css">
-    <title>Document</title>
+    <title>GMAE | Profile</title>
 </head>
 <body>
     <header>
@@ -34,26 +34,7 @@
             </div>
           </nav>
     </header>
-<main>
-    <div class="contenair">
-        <img src="../assets/img/logo_GMAE.png" class="imglogo" alt="logo_GMAE">
-        <div class="row mb-3">
-            <label for="inputEmail3" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-15">
-                Username :<input type="email" class="form-control" id="inputEmail3">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="inputPassword3" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-15">
-                Password<input type="password" class="form-control" id="inputPassword3">
-            </div>
-        </div>
-        <button type="button" class="btn btn-danger">Login</button>
-    </div>
-
-
-</main>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="app.js"></script>
 </body>
