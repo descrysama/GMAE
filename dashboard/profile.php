@@ -4,6 +4,8 @@ require_once '../config.php';
 if (empty($_SESSION['pseudo'])) {
   header('location:../login');
 }
+
+$formErr = null;
 $pseudo = $_SESSION['pseudo'];
 $req = $bdd->prepare('SELECT  nom, prenom, mot_de_passe FROM users WHERE pseudo = ?');
 $req->execute(array($pseudo));
@@ -87,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="card">
         <div class="card-body d-flex justify-content-center">
           <form class="form" action="" method="POST">
-          <p><?php if (!empty($formErr)){echo $formErr;} ?></p>
+          <p style="font-style:italic; text-align:center; color: red;"><?php if (!empty($formErr)){echo $formErr;} ?></p>
             <h5>Pseudo : </h5>
             <input type="text" name="pseudo" value="<?php echo $pseudo?>">
             <h5>Prenom : </h5>
