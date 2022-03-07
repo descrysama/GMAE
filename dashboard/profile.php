@@ -7,7 +7,7 @@ if (empty($_SESSION['pseudo'])) {
 
 $formErr = null;
 $pseudo = $_SESSION['pseudo'];
-$req = $bdd->prepare('SELECT  nom, prenom, mot_de_passe FROM users WHERE pseudo = ?');
+$req = $bdd->prepare('SELECT  nom, prenom, mot_de_passe, role FROM users WHERE pseudo = ?');
 $req->execute(array($pseudo));
 $fetch = $req->fetch();
 $row = $req->rowCount();
@@ -15,6 +15,11 @@ $row = $req->rowCount();
 $nom = $fetch['nom'];
 $prenom = $fetch['prenom'];
 $password = $fetch['mot_de_passe'];
+$role = $fetch['role'];
+
+if ($role == 1) {
+   $admin = '<li class="nav-item"><a class="nav-link" aria-current="page" href="../admin/home">Admin</a></li>';
+}
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -75,8 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="profile">Profil</a>
                   </li>
+                  <?php if (isset($admin)){echo $admin;}?>
                   <li class="nav-item">
-                    <a href="deconnexion" class="btn btn-danger">Déconnecter</a>
+                    <a href="../deconnexion" class="btn btn-danger">Déconnecter</a>
                   </li>
                 </ul>
               </div>
