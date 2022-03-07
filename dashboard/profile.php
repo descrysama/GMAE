@@ -16,15 +16,28 @@ $password = $fetch['mot_de_passe'];
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  if (!empty($_POST['pseudo']) && !empty($_POST['prenom']) && !empty($_POST['nom']) && !empty($_POST['password'])){
+  if (!empty($_POST['pseudo']) && !empty($_POST['prenom']) && !empty($_POST['nom'])){
+    if (empty($_POST['password'])) {
+      $sqlpassword = $fetch['mot_de_passe'];
+    } else {$sqlpassword = $_POST['password'];}
+    if (empty($_POST['pseudo'])) {
+      $sqlpseudo = $pseudo;
+    } else {$sqlpseudo = $_POST['pseudo'];}
+    if (empty($_POST['nom'])) {
+      $sqlnom = $fetch['nom'];
+    } else {$sqlnom = $_POST['nom'];}
+    if (empty($_POST['prenom'])) {
+      $sqlprenom = $fetch['prenom'];
+    } else {$sqlprenom = $_POST['prenom'];}
     $req = $bdd->prepare('UPDATE users SET pseudo = ? , prenom = ? , nom = ?, mot_de_passe = ? WHERE pseudo = ?');
     $req->execute(array(
-    htmlspecialchars($_POST['pseudo']),
-    htmlspecialchars($_POST['prenom']),
-    htmlspecialchars($_POST['nom']),
-    htmlspecialchars($_POST['password']),
+    htmlspecialchars($sqlpseudo),
+    htmlspecialchars($sqlprenom),
+    htmlspecialchars($sqlnom),
+    htmlspecialchars($sqlpassword),
     htmlspecialchars($pseudo)
     ));
+    $formErr = 'Changements validés';
     $_SESSION['pseudo'] = htmlspecialchars($_POST['pseudo']);
   }else {$formErr = 'Veuillez remplir correctement tout les champs.';}
 }
