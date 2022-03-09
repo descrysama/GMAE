@@ -10,10 +10,12 @@ $req = $bdd->prepare('SELECT role FROM users WHERE pseudo = ?');
 $req->execute(array($pseudo));
 $fetch = $req->fetch();
 
-$request = $bdd->query('SELECT pseudo, nom, prenom, role FROM users');
+$request = $bdd->query('SELECT id, pseudo, nom, prenom, role role FROM users');
 $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 $request->execute();
 $users = $request->fetchAll(PDO::FETCH_OBJ);
+
+
 
 
 if ($fetch['role'] == 0) {
@@ -72,6 +74,17 @@ if ($fetch['role'] == 0) {
                     Password<input type="text" class="form-control" id="password" name="password">
                 </div>
             </div>
+            <div class="row mb-3">
+            <label for="admin" class="col-sm-2 col-form-label">Admin</label>
+                <div>
+                  <input type="radio" id="non" name="admin" value="0" checked>
+                  <label for="non">Non</label>
+                </div>
+                <div>
+                  <input type="radio" id="oui" name="admin" value="1">
+                  <label for="oui">Oui</label>
+                </div>
+            </div>
             <button type="submit" id="log" class="btn btn-danger">Créer le compte</button>
       </form>
     </div>
@@ -86,11 +99,21 @@ if ($fetch['role'] == 0) {
               <td>Pseudo :</td>
               <td>Nom:</td>
               <td>Prenom:</td>
+              <td>Role:</td>
+              <td>Action:</td>
           </tr>
           <tr <?php foreach ($users as $user): ?> >
               <td><?= $user->pseudo ?></td>
               <td><?= $user->nom ?> </td>
               <td><?= $user->prenom ?></td>
+              <td><?= $user->role ?></td>
+              <td>
+                <form action="deleteuser" method="POST">
+                  <input type="hidden" name="pseudo" value="<?= $user->pseudo ?>">
+                  <input type="hidden" name="session" value="<?= $_SESSION['pseudo'] ?>">
+                  <input class="btn btn-danger" type="submit" value="Delete" name="">
+                </form>
+              </td>
           </tr <?php endforeach ?>>
       </tbody>
     </table>

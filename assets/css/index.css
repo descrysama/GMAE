@@ -92,3 +92,10 @@ table,td {
     border: 1px solid #333;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
