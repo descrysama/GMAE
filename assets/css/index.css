@@ -3,6 +3,10 @@ li {
     margin: 5px;
 }
 
+.ue {
+    display: flex;
+    flex-direction: row;
+}
 
 
 
@@ -83,3 +87,8 @@ li {
     display: flex;
     justify-content: center;
 }
+
+table,td {
+    border: 1px solid #333;
+}
+

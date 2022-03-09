@@ -5,12 +5,16 @@ require_once '../config.php';
 if (empty($_SESSION['pseudo'])) {
     header('location:../login');
 }
-
 $pseudo = $_SESSION['pseudo'];
-
 $req = $bdd->prepare('SELECT role FROM users WHERE pseudo = ?');
 $req->execute(array($pseudo));
 $fetch = $req->fetch();
+
+$request = $bdd->query('SELECT pseudo, nom, prenom, role FROM users');
+$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$request->execute();
+$users = $request->fetchAll(PDO::FETCH_OBJ);
+
 
 if ($fetch['role'] == 0) {
     header('location:../dashboard/home');
@@ -53,6 +57,44 @@ if ($fetch['role'] == 0) {
     </header>
     <div class="container">
     <h3>Créez les comptes utilisateurs ici :</h3>
+
+    <div class="w-25 m-4">
+    <form action="createuser.php" method="POST" class="form">
+            <div class="row mb-3">
+                <label for="pseudo" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-15">
+                    Username :<input type="text" class="form-control" id="pseudo" name="pseudo">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="password" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-15">
+                    Password<input type="text" class="form-control" id="password" name="password">
+                </div>
+            </div>
+            <button type="submit" id="log" class="btn btn-danger">Créer le compte</button>
+      </form>
+    </div>
+    <table class="table">
+      <thead>
+          <tr>
+              <th colspan="2">Les comptes</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>Pseudo :</td>
+              <td>Nom:</td>
+              <td>Prenom:</td>
+          </tr>
+          <tr <?php foreach ($users as $user): ?> >
+              <td><?= $user->pseudo ?></td>
+              <td><?= $user->nom ?> </td>
+              <td><?= $user->prenom ?></td>
+          </tr <?php endforeach ?>>
+      </tbody>
+    </table>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
